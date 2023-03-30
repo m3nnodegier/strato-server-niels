@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  pgadmin:
+    container_name: dbadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "8082:80"
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+  db:
+    container_name: database
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: niels
+      POSTGRES_PASSWORD: postgress
+      POSTGRES_DB: webshop
+      PGDATA: /var/lib/postgresql/data
+    networks:
+      - backend
+    volumes:
+        - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+       context: .
+       dockerfile: ./backend.Dockerfile
+    container_name: backend
+    ports:
+       - "8080:8080"
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - db
+
+  frontend: 
+    build:
+       context: .
+       dockerfile: ./frontend.Dockerfile
+    container_name: frontend
+    ports:
+      - "8000:4200"
+    networks:
+      - frontend
+    depends_on:
+      - backend
+    command: npm start
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  db-data:
+      name: postgress_db_data
+  pgadmin-data:
+      name: pg_db_admindata
