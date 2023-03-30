@@ -2,10 +2,6 @@ https://www.strato.nl/faq/server/de-eerste-stappen-met-je-linux-vps/
 
 https://www.strato.nl/faq/server/ssh-keys-aanmaken-om-in-te-loggen-op-je-strato-vps-linux/
 
-key-passphrase = niels (all lowercase)
-
-root wachtwoord: eVnjAHelCG9qEAMFJtGK
-
 - install docker engine: https://docs.docker.com/engine/install/ubuntu/
 
 sudo apt-get update
@@ -25,17 +21,11 @@ sudo docker run hello-world
 apt install docker-compose
 systemctl start docker
 
-adduser niels  (password: niels)
-visudo -> add following line: niels ALL=(ALL:ALL) ALL
-
-Uiteindelijk user niels niet gebruikt, maar wel de user space /home/niels
-
 - file aangemaakt die heet docker-compose.yml
   deze file bevat twee dockers 1 post-gress database en 2 pgadmin met bij behorende wachtwoorden etc.
   
 start de content van de docker-file op met : 
 
-cd /home/niels
 docker-compose up -d (-d van deamon mode)
 ( als de docker image niet beschikbaar is wordt deze vanzelf opgehaald )
 
@@ -43,7 +33,7 @@ gestartte docker bekijken:
 docker-compose ps
 
 docker stoppen: 
-cd /home/niels
+
 docker-compose down 
 
 
