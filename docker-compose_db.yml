@@ -10,6 +10,7 @@ services:
     ports:
       - "8082:80"
     networks:
+      - backend
       - frontend
     volumes:
       - pgadmin-data:/var/lib/pgadmin
@@ -24,14 +25,13 @@ services:
       POSTGRES_DB: webshop
       PGDATA: /var/lib/postgresql/data
     networks:
-      - frontend
+      - backend
     volumes:
         - db-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
 networks:
   frontend:
+  backend:
 
 volumes:
   db-data:

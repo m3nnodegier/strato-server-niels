@@ -10,7 +10,9 @@ RUN npm install -g npm@9.6.2
 
 RUN rm /code/package-lock.json
 
-COPY  environment.ts /code/src/environments/environment.ts
+COPY package.json /code/package.json
+
+COPY environment.ts /code/src/environments/environment.ts
 
 RUN npm install
 
